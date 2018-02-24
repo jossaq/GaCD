@@ -1,5 +1,5 @@
 
-## Load all the libraries needed
+## Loading the necesary libraries
 
 library("dplyr")
 
@@ -14,21 +14,21 @@ if (!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
     download.file(dataset_url, "getdata-projectfiles-UCI HAR Dataset.zip")
 }
 
-## Extract everything into the "UCI HAR Dataset" directory unless the directory
+## Extract  into the "UCI HAR Dataset" directory unless the directory
 ## exists
 
 if (!file.exists("UCI HAR Dataset")) { 
     unzip("getdata-projectfiles-UCI HAR Dataset.zip")
 }
 
-## Start fixing the test and train data sets into a single table
-## Read X_test.txt and X_train.txt into xtest tbl_df and change column
-## names to corespond to the ones in features.txt file
+## Fix the test and train data sets into a single table
+## Read X_test.txt and X_train.txt into xtest tbl_df and rename
+## colomns to corespond to the ones in features.txt file
 
 tmpfeatures <- read.table("UCI HAR Dataset/features.txt")
 features <- as.vector(tmpfeatures[, 2])
 
-## Make variable names more readable by removing especial characters like "-"
+## Make variable names human readable by removing especial characters like "-"
 ## and "()" and making the variable names Syntactically Valid with the function
 ## make.names
 features <- gsub("-", "", features)
@@ -68,7 +68,7 @@ subjecttrain <- tbl_df(read.table("UCI HAR Dataset/train/subject_train.txt"))
 colnames(subjecttrain) <- c("subject")
 traindatafull <- tbl_df(cbind(subjecttrain, activitytrain, xtrain))
 
-## Select only the columns we want, mean and standard deviation, from
+## Select only the columns we want: mean and standard deviation, from
 ## testdatafull and traindatafull, put the result into testdata and traindata
 ## and finally append both together and order by subject and activity and
 ## save the tbl_df as tidyfulldata and cvs file tidyfulldata.txt
